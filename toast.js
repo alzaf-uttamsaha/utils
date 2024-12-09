@@ -31,3 +31,11 @@ export const triggerToast = (msg, status = "success") => {
     // { duration: 500000 } 
   );
 };
+
+
+//toaster
+ <Toaster position="top-right"
+            toastOptions={{
+              unstyled: true,
+            }}
+          />
