@@ -1,0 +1,46 @@
+  const elementRef = useRef<HTMLDivElement>(null);
+  const [isCapturing, setIsCapturing] = useState(false);
+
+  const downloadImage = async () => {
+    if (!elementRef.current) return;
+
+    try {
+      setIsCapturing(true);
+
+      const dataUrl = await htmlToImage.toPng(elementRef.current, {
+        quality: 1.0,
+        pixelRatio: 2,
+        cacheBust: true,
+      });
+
+      const link = document.createElement("a");
+      link.download = "summary.png";
+      link.href = dataUrl;
+      link.click();
+      // Reset success indicator after 2 seconds
+    } catch (error) {
+      console.error("Error downloading image:", error);
+    } finally {
+      setIsCapturing(false);
+    }
+  };
+
+
+      <div
+            onClick={downloadImage}
+            className="flex items-center gap-2 cursor-pointer"
+          >
+            <span>
+              <ScreenshotIcon />
+            </span>
+            <span>Screenshot</span>
+          </div>
+
+
+
+     <div
+        ref={elementRef}
+        className={`bg-white ${isCapturing && "p-10 rounded-lg"}`}
+      >
+
+     </div>
