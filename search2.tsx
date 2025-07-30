@@ -12,7 +12,7 @@ export default function GlobalSearch() {
   const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
 
-  console.log(isPending)
+  console.log(isPending);
   const handleSearchParams = useCallback(
     (debouncedValue: string) => {
       const params = new URLSearchParams(window.location.search);
@@ -20,7 +20,8 @@ export default function GlobalSearch() {
         params.set("q", debouncedValue);
         params.delete("page");
       } else {
-        params.delete("search");
+        params.delete("q"); // fix
+        params.delete("page");
       }
       startTransition(() => {
         router.replace(`${pathname}?${params.toString()}`);
